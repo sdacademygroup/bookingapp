@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" th:href="@{/css/index.css}"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<body>
+
+<h1>Result</h1>
+
+<p th:text="'email: ' + ${email}"/>
+
+<a th:href="@{/newsletter}">Go Newsletter Page</a>
+
+</body>
+</html>
