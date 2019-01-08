@@ -29,7 +29,6 @@ public class PropertySpecification {
                 Path<RoomEntity> roomEntityPath = root.get("room");
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(roomEntityPath.get("maximumPerson"), searchPropertyModel.getAdults() + searchPropertyModel.getChildren()));
 
-
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };

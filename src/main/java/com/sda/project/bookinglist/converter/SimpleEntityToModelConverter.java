@@ -10,7 +10,13 @@ import com.sda.project.bookinglist.model.RoomModel;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Component
 public class SimpleEntityToModelConverter {
@@ -43,14 +49,6 @@ public class SimpleEntityToModelConverter {
             propertyModel.setPropertyName(addressEntity.getProperty().getPropertyName());
             propertyModel.setStartsFrom(addressEntity.getProperty().getStartsFrom());
 
-            RoomModel roomModel = new RoomModel();
-            roomModel.setRoomId(addressEntity.getRoom().getRoomId());
-            roomModel.setRoomName(addressEntity.getRoom().getRoomName());
-            roomModel.setIncludes(addressEntity.getRoom().getIncludes());
-            roomModel.setMaximumPerson(addressEntity.getRoom().getMaximumPerson());
-            roomModel.setPricePerNight(addressEntity.getRoom().getPricePerNight());
-            propertyModel.getRooms().add(roomModel);
-
             AddressModel addressModel = new AddressModel();
             addressModel.setAddressId(addressEntity.getAddressId());
             addressModel.setCity(addressEntity.getCity());
@@ -61,6 +59,11 @@ public class SimpleEntityToModelConverter {
 
             propertyModels.add(propertyModel);
         }
-        return propertyModels;
+        return propertyModels.stream().filter(distinctBy(p -> p.getPropertyName())).collect(Collectors.toList());
+    }
+
+    public static <T> Predicate<T> distinctBy(Function<? super T, ?> f) {
+        Set<Object> objects = new HashSet<>();
+        return t -> objects.add(f.apply(t));
     }
 }
