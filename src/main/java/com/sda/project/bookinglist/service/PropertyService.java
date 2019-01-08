@@ -1,15 +1,20 @@
 package com.sda.project.bookinglist.service;
 
+import com.sda.project.bookinglist.converter.SimpleEntityToModelConverter;
 import com.sda.project.bookinglist.entity.AddressEntity;
-import com.sda.project.bookinglist.entity.PropertyEntity;
-import com.sda.project.bookinglist.model.AddressModel;
 import com.sda.project.bookinglist.model.PropertyModel;
+import com.sda.project.bookinglist.model.SearchPropertyModel;
+import com.sda.project.bookinglist.repository.CustomPropertyRepository;
 import com.sda.project.bookinglist.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.sda.project.bookinglist.repository.specification.PropertySpecification.prepareSearchPropertyQuery;
 
 @Service
 public class PropertyService {
@@ -17,20 +22,22 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
-    public List<PropertyModel> getProperties() {
+    @Autowired
+    private SimpleEntityToModelConverter simpleEntityToModelConverter;
 
-        List<PropertyEntity> propertyEntities = propertyRepository.findAll();
+    @Autowired
+    private CustomPropertyRepository customPropertyRepository;
 
-        List<PropertyModel> propertyModels = new ArrayList<>();
-        for (PropertyEntity propertyEntity : propertyEntities) {
-            List<AddressModel> addressModels = new ArrayList<>();
-            for (AddressEntity addressEntity : propertyEntity.getAddresses()) {
-                addressModels.add(AddressModel.builder().addressId(addressEntity.getAddressId()).street(addressEntity.getStreet()).postalCode(addressEntity.getPostalCode()).city(addressEntity.getCity()).country(addressEntity.getCountry()).build());
-            }
-            propertyModels.add(PropertyModel.builder().addresses(addressModels).propertyId(propertyEntity.getPropertyId()).startsFrom(propertyEntity.getStartsFrom()).propertyName(propertyEntity.getPropertyName()).build());
-        }
-
-        return propertyModels;
+    public List<PropertyModel> getAllProperties() {
+        return simpleEntityToModelConverter.propertyEntitiesToModels(propertyRepository.findAll());
     }
 
+    public Page<PropertyModel> getSearchedProperties(final SearchPropertyModel searchPropertyModel) {
+
+        List<AddressEntity> addressEntities = customPropertyRepository.findAll(prepareSearchPropertyQuery(searchPropertyModel));
+
+        List<PropertyModel> propertyModels = simpleEntityToModelConverter.addressEntitiesToPropertyModels(addressEntities);
+
+        return new PageImpl<>(propertyModels, PageRequest.of(0, 10), propertyModels.size());
+    }
 }

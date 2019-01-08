@@ -1,15 +1,13 @@
 package com.sda.project.bookinglist.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -37,5 +35,9 @@ public class AddressEntity {
     @ManyToOne(targetEntity = PropertyEntity.class)
     @JoinColumn(name = "propertyId", referencedColumnName = "propertyId")
     private PropertyEntity property;
+
+    @OneToOne(targetEntity = RoomEntity.class)
+    @JoinColumn(name = "roomId", referencedColumnName = "roomId")
+    private RoomEntity room;
 
 }

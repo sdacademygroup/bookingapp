@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,7 +20,15 @@ public class PropertyModel {
 
     private String propertyName;
 
+    private String propertyDescription;
+
     private BigDecimal startsFrom;
 
-    private List<AddressModel> addresses;
+    private String resultPageImageUrl;
+
+    private List<String> mediaLinks;
+
+    private List<AddressModel> addresses = new ArrayList<>();
+
+    private List<RoomModel> rooms = new ArrayList<>();
 }
