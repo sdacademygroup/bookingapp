@@ -16,5 +16,5 @@ public class AddressModel {
     private String postalCode;
     private String city;
     private String country;
-    private PropertyModel property;
+    private RoomModel roomModel;
 }

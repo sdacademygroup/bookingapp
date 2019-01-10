@@ -23,11 +23,28 @@ public class PropertySpecification {
                     predicates.add(criteriaBuilder.equal(root.get("city"), searchPropertyModel.getDestination()));
                 }
 
-                Path<PropertyEntity> propertyEntityPath = root.get("property");
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(propertyEntityPath.get("startsFrom"), searchPropertyModel.getStartsFrom()));
+                if (searchPropertyModel.getStartsFrom() != null) {
+                    Path<RoomEntity> roomEntityPath = root.get("room");
+                    Path<PropertyEntity> propertyEntityPath = roomEntityPath.get("property");
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(
+                            propertyEntityPath.get("startsFrom"), searchPropertyModel.getStartsFrom()));
+                }
 
-                Path<RoomEntity> roomEntityPath = root.get("room");
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(roomEntityPath.get("maximumPerson"), searchPropertyModel.getAdults() + searchPropertyModel.getChildren()));
+                if (searchPropertyModel.getAdults() != 0 || searchPropertyModel.getChildren() != 0) {
+                    int amountOfPeople = 0;
+
+                    if (searchPropertyModel.getAdults() != 0) {
+                        amountOfPeople += searchPropertyModel.getAdults();
+                    }
+
+                    if (searchPropertyModel.getChildren() != 0) {
+                        amountOfPeople += searchPropertyModel.getChildren();
+                    }
+
+                    Path<RoomEntity> roomEntityPath = root.get("room");
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(
+                            roomEntityPath.get("maximumPerson"), amountOfPeople));
+                }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }

@@ -1,10 +1,13 @@
 package com.sda.project.bookinglist.controller;
 
 import com.sda.project.bookinglist.model.NewsletterModel;
+import com.sda.project.bookinglist.model.PropertyModel;
 import com.sda.project.bookinglist.model.SearchPropertyModel;
 import com.sda.project.bookinglist.model.TopDestinationModel;
 import com.sda.project.bookinglist.service.AddressService;
+import com.sda.project.bookinglist.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +21,9 @@ public class IndexController {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private PropertyService propertyService;
 
     @GetMapping("/")
     public ModelAndView indexPage() {
@@ -33,7 +39,11 @@ public class IndexController {
     @GetMapping("/search")
     public ModelAndView searchProperty(@ModelAttribute SearchPropertyModel searchPropertyModel) {
 
-        return new ModelAndView("/result");
+        Page<PropertyModel> propertyModelPage = propertyService.getSearchedProperties(searchPropertyModel);
+
+        return new ModelAndView("/result")
+                .addObject("searchPropertyModel", new SearchPropertyModel())
+                .addObject("propertyModelPage", propertyModelPage);
     }
 
     @GetMapping("/search/{city}")

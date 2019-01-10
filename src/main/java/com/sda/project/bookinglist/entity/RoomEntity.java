@@ -34,12 +34,16 @@ public class RoomEntity implements Serializable {
     @LastModifiedDate
     private Date modifiedAt;
 
+    @Column
     private String roomName;
 
+    @Column
     private int maximumPerson;
 
+    @Column
     private String includes;
 
+    @Column
     private BigDecimal pricePerNight;
 
     @ManyToOne(targetEntity = PropertyEntity.class)

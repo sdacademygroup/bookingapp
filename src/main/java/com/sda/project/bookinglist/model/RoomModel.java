@@ -12,9 +12,12 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomModel {
+
     private Long roomId;
     private String roomName;
     private String includes;
     private int maximumPerson;
     private BigDecimal pricePerNight;
+    private PropertyModel propertyModel;
+
 }

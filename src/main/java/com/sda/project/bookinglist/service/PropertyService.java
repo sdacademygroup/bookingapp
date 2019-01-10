@@ -34,9 +34,11 @@ public class PropertyService {
 
     public Page<PropertyModel> getSearchedProperties(final SearchPropertyModel searchPropertyModel) {
 
-        List<AddressEntity> addressEntities = customPropertyRepository.findAll(prepareSearchPropertyQuery(searchPropertyModel));
+        List<AddressEntity> addressEntities = customPropertyRepository
+                .findAll(prepareSearchPropertyQuery(searchPropertyModel));
 
-        List<PropertyModel> propertyModels = simpleEntityToModelConverter.addressEntitiesToPropertyModels(addressEntities);
+        List<PropertyModel> propertyModels = simpleEntityToModelConverter
+                .addressEntitiesToPropertyModels(addressEntities);
 
         return new PageImpl<>(propertyModels, PageRequest.of(0, 10), propertyModels.size());
     }
