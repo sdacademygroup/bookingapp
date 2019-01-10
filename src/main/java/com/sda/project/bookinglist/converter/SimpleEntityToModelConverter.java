@@ -7,6 +7,7 @@ import com.sda.project.bookinglist.entity.RoomEntity;
 import com.sda.project.bookinglist.model.AddressModel;
 import com.sda.project.bookinglist.model.NewsletterModel;
 import com.sda.project.bookinglist.model.PropertyModel;
+import com.sda.project.bookinglist.utility.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -51,6 +52,13 @@ public class SimpleEntityToModelConverter {
             propertyModel.setPropertyId(addressEntity.getRoom().getProperty().getPropertyId());
             propertyModel.setPropertyName(addressEntity.getRoom().getProperty().getPropertyName());
             propertyModel.setStartsFrom(addressEntity.getRoom().getProperty().getStartsFrom());
+            propertyModel.setPropertyDescription(addressEntity.getRoom().getProperty().getPropertyDescription());
+
+            if (addressEntity.getRoom().getProperty().getAmenities() != null) {
+                List<String> amenities = StringUtils.splitStringByComma(addressEntity.getRoom().getProperty().getAmenities());
+                propertyModel.setAmenities(amenities);
+            }
+
 
             AddressModel addressModel = new AddressModel();
             addressModel.setAddressId(addressEntity.getAddressId());

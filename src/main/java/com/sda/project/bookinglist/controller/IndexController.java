@@ -41,7 +41,8 @@ public class IndexController {
 
         Page<PropertyModel> propertyModelPage = propertyService.getSearchedProperties(searchPropertyModel);
 
-        return new ModelAndView("/result")
+        return new ModelAndView("/" +
+                "result")
                 .addObject("searchPropertyModel", new SearchPropertyModel())
                 .addObject("propertyModelPage", propertyModelPage);
     }
