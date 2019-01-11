@@ -2,6 +2,7 @@ package com.sda.project.bookinglist.service;
 
 import com.sda.project.bookinglist.converter.SimpleEntityToModelConverter;
 import com.sda.project.bookinglist.entity.AddressEntity;
+import com.sda.project.bookinglist.entity.PropertyEntity;
 import com.sda.project.bookinglist.model.PropertyModel;
 import com.sda.project.bookinglist.model.SearchPropertyModel;
 import com.sda.project.bookinglist.repository.CustomPropertyRepository;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.sda.project.bookinglist.repository.specification.PropertySpecification.prepareSearchPropertyQuery;
 
@@ -27,6 +29,13 @@ public class PropertyService {
 
     @Autowired
     private CustomPropertyRepository customPropertyRepository;
+
+    public PropertyModel getPropertyById(final Long propertyId){
+
+        Optional<PropertyEntity> propertyEntity = propertyRepository.findById(propertyId);
+
+        return propertyRepository.findById(propertyId);
+    }
 
     public List<PropertyModel> getAllProperties() {
         return simpleEntityToModelConverter.propertyEntitiesToModels(propertyRepository.findAll());

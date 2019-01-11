@@ -7,6 +7,7 @@ import com.sda.project.bookinglist.entity.RoomEntity;
 import com.sda.project.bookinglist.model.AddressModel;
 import com.sda.project.bookinglist.model.NewsletterModel;
 import com.sda.project.bookinglist.model.PropertyModel;
+import com.sda.project.bookinglist.model.RoomModel;
 import com.sda.project.bookinglist.utility.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -44,6 +45,44 @@ public class SimpleEntityToModelConverter {
         }
         return propertyModels;
     }
+
+    public PropertyModel propertyEntityToModel(final PropertyEntity propertyEntity) {
+
+        PropertyModel propertyModel = new PropertyModel();
+
+        propertyModel.setPropertyId(propertyEntity.getPropertyId());
+
+        if (propertyEntity.getAmenities() != null) {
+            List<String> amenities = StringUtils.splitStringByComma(propertyEntity.getAmenities());
+            propertyModel.setAmenities(amenities);
+        }
+
+        propertyModel.setResultPageImageUrl(propertyEntity.getResultPageImageUrl());
+
+        //TODO create MediaEntity and convert multiple media entity to converter
+        //propertyModel.setMediaLinks(propertyEntity.getMediaLinks());
+
+        propertyModel.setPropertyDescription(propertyEntity.getPropertyDescription());
+        propertyModel.setStartsFrom(propertyEntity.getStartsFrom());
+
+
+        List<RoomModel> roomModels = new ArrayList<>();
+        for (RoomEntity roomEntity : propertyEntity.getRooms()) {
+            RoomModel roomModel = new RoomModel();
+            roomModel.setRoomId(roomEntity.getRoomId());
+            roomModel.setRoomName(roomEntity.getRoomName());
+            roomModel.setIncludes(roomEntity.getIncludes());
+            roomModel.setMaximumPerson(roomEntity.getMaximumPerson());
+            roomModel.setPricePerNight(roomEntity.getPricePerNight());
+
+            roomModels.add(roomModel);
+        }
+
+        propertyModel.setRooms(roomModels);
+
+        return propertyModel;
+    }
+
 
     public List<PropertyModel> addressEntitiesToPropertyModels(final List<AddressEntity> addressEntities) {
         List<PropertyModel> propertyModels = new ArrayList<>();

@@ -50,7 +50,14 @@ public class PropertyEntity implements Serializable {
     @Column(precision = 10, scale = 2)
     private BigDecimal startsFrom;
 
+    @Column
+    private String resultPageImageUrl;
+
     @BatchSize(size = 10)
     @OneToMany(targetEntity = RoomEntity.class, mappedBy = "property", cascade = CascadeType.ALL)
     private List<RoomEntity> rooms;
+
+    @BatchSize(size = 10)
+    @OneToMany(targetEntity = MediaEntity.class, mappedBy = "property", cascade = CascadeType.ALL)
+    private List<MediaEntity> mediaLinks;
 }

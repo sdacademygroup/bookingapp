@@ -334,8 +334,10 @@
                                 </div>
                             </div>
                             <div class="absolute-bottom">
-                                <p class="text-primary"><i class="fa fa-check-circle"></i> Breakfast Included <span class="mh-10">|</span> <i
-                                        class="fa fa-check-circle"></i> Free Wifi in Room</p>
+                                <p class="text-primary">
+                                    <i class="fa fa-check-circle" th:text="${propertyModel.amenities.get(0)}"></i>
+                                    <span class="mh-10">|</span>
+                                    <i class="fa fa-check-circle" th:text="${propertyModel.amenities.get(1)}"></i></p>
                             </div>
                             <div class="absolute-right">
                                 <div class="meta-option">
@@ -351,7 +353,7 @@
                                         <span class="number" th:text="'€'+${propertyModel.startsFrom}"></span>
                                         <span class="block">avg / night</span>
                                     </p>
-                                    <a href="#" class="btn btn-danger btn-sm">Details</a>
+                                    <a th:href="@{}" class="btn btn-danger btn-sm">Details</a>
                                 </div>
                             </div>
                         </div>
