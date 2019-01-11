@@ -1,1 +1,1 @@
-# bookinglist
+# Booking reservation application for Hotels
