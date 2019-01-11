@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title Of Site -->
+    <title>Hotel Booking App</title>
+    <meta name="description" content="HTML Responsive Template for renting unique accommodations from local hosts Based on Twitter Bootstrap 3.x.x">
+    <meta name="keywords" content="booking, hotel, resort, travel, holiday, tour, accommodation, vocation, trip">
+    <meta name="author" content="Isa Kalinsaz">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Fav and Touch Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="http://crenoveative.com/envato/extretion/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="http://crenoveative.com/envato/extretion/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="http://crenoveative.com/envato/extretion/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="http://crenoveative.com/envato/extretion/images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="http://crenoveative.com/envato/extretion/images/ico/favicon.png">
+
+    <!-- CSS Plugins -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" media="screen">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/component.css}">
+
+    <!-- CSS Font Icons -->
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.css}">
+    <link rel="stylesheet" th:href="@{/css/rivolicon/style.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon-streamline-outline.css}">
+    <link rel="stylesheet" th:href="@{/css/around-the-world-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/etline/style.css}">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+
+    <!-- CSS Custom -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <!-- Add your style -->
+    <link th:href="@{/css/your-style.css}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+
+    <style type="text/css"></style>
+</head>
+
+<body class="" data-gr-c-s-loaded="true" style="">
+
+<!-- BEGIN # MODAL LOGIN -->
+<div th:replace="login::login"></div>
+<!-- END # MODAL LOGIN -->
+
+<!-- Start Container Wrapper -->
+<div class="container-wrapper colored-navbar-brand">
+
+    <!-- start Header -->
+    <div th:replace="header::header"></div>
+    <!-- end Header -->
+
+    <div class="clear"></div>
+
+    <!-- start Main Wrapper -->
+    <div layout:fragment="content"/>
+    <!-- end Main Wrapper -->
+
+    <div class="clear"></div>
+
+    <div th:replace="footer::footer"></div>
+
+</div> <!-- / .wrapper -->
+<!-- end Container Wrapper -->
+
+<!-- start Back To Top -->
+<div id="back-to-top" style="display: block;">
+    <a href="http://crenoveative.com/envato/extretion/index-2.html#"><i class="ion-ios-arrow-up"></i></a>
+</div>
+<!-- end Back To Top -->
+
+<!-- jQuery Cores -->
+<script type="text/javascript" th:src="@{js/jquery-1.11.3.min.js}"></script>
+<script type="text/javascript" th:src="@{js/jquery-migrate-1.2.1.min.js}"></script>
+
+<!-- Bootstrap Js -->
+<script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+
+<!-- Custom js codes for plugins -->
+<script type="text/javascript" th:src="@{js/customs.js}"></script>
+
+<!-- Plugins - serveral jquery plugins that use in this template -->
+<script type="text/javascript" th:src="@{js/plugins.js}"></script>
+
+<!-- Date Piacker -->
+<script type="text/javascript" th:src="@{js/bootstrap-datepicker.min.js}"></script>
+<script type="text/javascript" th:src="@{js/customs-datepicker.js}"></script>
+
+</body>
+<span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>

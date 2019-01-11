@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" th:href="@{/css/index.css}"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<body>
+
+<h1>Search Result</h1>
+
+<div th:each="propertyModel : ${propertyModelPage.getContent()}">
+    <p th:text="${propertyModel.propertyName}"></p>
+</div>
+
+<br/>
+
+<p th:text="'Total Elements : ' + ${propertyModelPage.totalElements}"></p>
+<p th:text="'Total Pages : ' + ${propertyModelPage.totalPages}"></p>
+<p th:text="'Page Size : ' + ${propertyModelPage.size}"></p>
+
+<a th:href="@{/}">Go To Main Page</a>
+
+</body>
+</html>

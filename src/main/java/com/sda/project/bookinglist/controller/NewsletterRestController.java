@@ -1,7 +1,12 @@
 package com.sda.project.bookinglist.controller;
 
 import com.sda.project.bookinglist.model.NewsletterModel;
+import com.sda.project.bookinglist.model.PropertyModel;
+import com.sda.project.bookinglist.model.SearchPropertyModel;
+import com.sda.project.bookinglist.model.TopDestinationModel;
+import com.sda.project.bookinglist.repository.AddressRepository;
 import com.sda.project.bookinglist.service.NewsletterService;
+import com.sda.project.bookinglist.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -5,31 +5,31 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.Date;
 
-@Entity
 @Getter
 @Setter
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "newsletter")
+@Table(name = "media")
 @EntityListeners(AuditingEntityListener.class)
-public class NewsletterEntity {
+public class MediaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long mediaId;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt;
 
-    @Email
-    @Column(length = 50, unique = true, nullable = false)
-    private String email;
+    @Column
+    private String mediaUrl;
 
-
+    @ManyToOne(targetEntity = PropertyEntity.class)
+    @JoinColumn(name = "propertyId", referencedColumnName = "propertyId")
+    private PropertyEntity property;
 }
