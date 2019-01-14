@@ -30,11 +30,15 @@ public class PropertyService {
     @Autowired
     private CustomPropertyRepository customPropertyRepository;
 
-    public PropertyModel getPropertyById(final Long propertyId){
+    public PropertyModel getPropertyByPropertyIdAndAddressId(final Long propertyId, final Long addressId) {
 
         Optional<PropertyEntity> propertyEntity = propertyRepository.findById(propertyId);
 
-        return null;
+        if (propertyEntity.isPresent()) {
+            return simpleEntityToModelConverter.propertyEntityToModel(propertyEntity.get(), addressId);
+        } else {
+            throw new NullPointerException("You don't have selected property");
+        }
     }
 
     public List<PropertyModel> getAllProperties() {

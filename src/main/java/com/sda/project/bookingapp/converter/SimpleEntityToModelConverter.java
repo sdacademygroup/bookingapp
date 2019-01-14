@@ -1,13 +1,7 @@
 package com.sda.project.bookingapp.converter;
 
-import com.sda.project.bookingapp.entity.AddressEntity;
-import com.sda.project.bookingapp.entity.NewsletterEntity;
-import com.sda.project.bookingapp.entity.PropertyEntity;
-import com.sda.project.bookingapp.entity.RoomEntity;
-import com.sda.project.bookingapp.model.AddressModel;
-import com.sda.project.bookingapp.model.NewsletterModel;
-import com.sda.project.bookingapp.model.PropertyModel;
-import com.sda.project.bookingapp.model.RoomModel;
+import com.sda.project.bookingapp.entity.*;
+import com.sda.project.bookingapp.model.*;
 import com.sda.project.bookingapp.utility.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -46,7 +40,7 @@ public class SimpleEntityToModelConverter {
         return propertyModels;
     }
 
-    public PropertyModel propertyEntityToModel(final PropertyEntity propertyEntity) {
+    public PropertyModel propertyEntityToModel(final PropertyEntity propertyEntity, final Long addressId) {
 
         PropertyModel propertyModel = new PropertyModel();
 
@@ -59,28 +53,52 @@ public class SimpleEntityToModelConverter {
 
         propertyModel.setResultPageImageUrl(propertyEntity.getResultPageImageUrl());
 
-        //TODO create MediaEntity and convert multiple media entity to converter
-        //propertyModel.setMediaLinks(propertyEntity.getMediaLinks());
+        List<MediaModel> mediaModels = new ArrayList<>();
+        for (MediaEntity mediaEntity : propertyEntity.getMediaLinks()) {
+            MediaModel mediaModel = new MediaModel();
+            mediaModel.setMediaId(mediaEntity.getMediaId());
+            mediaModels.add(mediaModel);
+        }
+        propertyModel.setMediaLinks(mediaModels);
+
 
         propertyModel.setPropertyDescription(propertyEntity.getPropertyDescription());
         propertyModel.setStartsFrom(propertyEntity.getStartsFrom());
 
 
-        List<RoomModel> roomModels = new ArrayList<>();
-        for (RoomEntity roomEntity : propertyEntity.getRooms()) {
-            RoomModel roomModel = new RoomModel();
-            roomModel.setRoomId(roomEntity.getRoomId());
-            roomModel.setRoomName(roomEntity.getRoomName());
-            roomModel.setIncludes(roomEntity.getIncludes());
-            roomModel.setMaximumPerson(roomEntity.getMaximumPerson());
-            roomModel.setPricePerNight(roomEntity.getPricePerNight());
+        List<RoomModel> roomModels = getRoomModels(propertyEntity, addressId);
 
-            roomModels.add(roomModel);
-        }
 
         propertyModel.setRooms(roomModels);
 
         return propertyModel;
+    }
+
+    private List<RoomModel> getRoomModels(PropertyEntity propertyEntity, Long addressId) {
+        List<RoomModel> roomModels = new ArrayList<>();
+        List<AddressModel> addressModels = new ArrayList<>();
+
+        for (RoomEntity roomEntity : propertyEntity.getRooms()) {
+            if (roomEntity.getAddress().getAddressId() == addressId) {
+                RoomModel roomModel = new RoomModel();
+                roomModel.setRoomId(roomEntity.getRoomId());
+                roomModel.setRoomName(roomEntity.getRoomName());
+                roomModel.setIncludes(roomEntity.getIncludes());
+                roomModel.setMaximumPerson(roomEntity.getMaximumPerson());
+                roomModel.setPricePerNight(roomEntity.getPricePerNight());
+                roomModels.add(roomModel);
+
+                if (addressModels.size() < 1) {
+                    AddressModel addressModel = new AddressModel();
+                    addressModel.setAddressId(roomEntity.getAddress().getAddressId());
+                    addressModel.setCity(roomEntity.getAddress().getCity());
+                    addressModel.setCountry(roomEntity.getAddress().getCountry());
+                    addressModel.setPostalCode(roomEntity.getAddress().getPostalCode());
+                    addressModels.add(addressModel);
+                }
+            }
+        }
+        return roomModels;
     }
 
 

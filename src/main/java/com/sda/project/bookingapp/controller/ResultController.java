@@ -1,5 +1,7 @@
 package com.sda.project.bookingapp.controller;
 
+import com.sda.project.bookingapp.model.PropertyModel;
+import com.sda.project.bookingapp.model.SearchPropertyModel;
 import com.sda.project.bookingapp.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +15,14 @@ public class ResultController {
     @Autowired
     private PropertyService propertyService;
 
-    @GetMapping("/search/{propertyId}")
-    public ModelAndView searchPropertyById(@PathVariable("propertyId") Long propertyId) {
+    @GetMapping("/search/property/{propertyId}/address/{addressId}")
+    public ModelAndView searchPropertyById(@PathVariable("propertyId") Long propertyId,
+                                           @PathVariable("addressId") Long addressId) {
 
-        return null;
+        PropertyModel propertyModel = propertyService.getPropertyByPropertyIdAndAddressId(propertyId, addressId);
+
+        return new ModelAndView("property-detail")
+                .addObject("searchPropertyModel", new SearchPropertyModel())
+                .addObject("propertyModel", propertyModel);
     }
 }
